@@ -1,14 +1,19 @@
+from gpiozero import Device
 from time import sleep
 import spidev
 
-bus = 0
-device = 1
+bus = 19
+device = 21
 
 spi = spidev.SpiDev()
-spi.open(bus, device)
+spi.open(0, 0)
 
 # Settings (for example)
 spi.max_speed_hz = 5000
 spi.mode = 0b01
 
-print(spi)
+while True:
+    sleep(1)
+    number = spi.xfer([0b01100000, 0b00000000])
+    number[0] = number[0] * 256
+    print(number[0] + number[1])

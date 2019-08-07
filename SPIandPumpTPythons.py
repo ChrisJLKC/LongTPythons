@@ -17,6 +17,7 @@ spi.open(bus, device)
 spi.max_speed_hz = 5000
 spi.mode = 0b01
 
+print(spi)
 
 for i in range(1,number_of_cycles):
         pump.forward()

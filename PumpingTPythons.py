@@ -4,7 +4,13 @@ from time import sleep
 
 Device.pin_factory = MockFactory()
 
-pump = Motor(17, 18)
-pump.forward()
-sleep(5)
-pump.stop()
+pump_time = 2
+cycle_time = 10800
+number_of_cycles = 8
+
+for i in range(1,8):
+        pump = Motor(17, 18)
+        pump.forward()
+        sleep(pump_time)
+        pump.stop()
+        sleep(cycle_time)

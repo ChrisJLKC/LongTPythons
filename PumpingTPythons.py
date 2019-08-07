@@ -4,7 +4,7 @@ import spidev
 
 class Schedule_Pumping:
 
-    def __init__(self, number_of_cycles = 8, cycle_time = 10800, pump_time = 2, min_moisture = 100):
+    def __init__(self, number_of_cycles = 8, cycle_time = 1, pump_time = 2, min_moisture = 100):
         
         #SPI SETUP
         bus = 19
@@ -18,6 +18,8 @@ class Schedule_Pumping:
         
         moisture_level_p = spi.xfer([0b01100000, 0b00000000]) #This is the 16 bit binary number that is produced from the 8-bit chip 
         moisture_level = (moisture_level_p[0] * 256) + moisture_level_p[1] #combines both 8 bit binary numbers into a 16 bit number
+        
+        self.moisture_level = moisture_level # Only for testing. Remove later.
 
         #Pump
         for _ in range(1,number_of_cycles):

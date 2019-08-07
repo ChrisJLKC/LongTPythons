@@ -1,8 +1,5 @@
-from gpiozero.pins.mock import MockFactory
 from gpiozero import Device, Motor
 from time import sleep
-
-Device.pin_factory = MockFactory()
 
 pump_time = 2
 cycle_time = 10800

@@ -16,7 +16,6 @@ class Schedule_Pumping:
     
     def moisture_check(self):
         #Sets up the SPI values required to check moisture - returns the value as a positive integer
-
         moisture_level_p = self.spi.xfer([0b01100000, 0b00000000]) #This is the 16 bit binary number that is produced from the 8-bit chip 
         return (moisture_level_p[0] * 256) + moisture_level_p[1] #combines both 8 bit binary numbers into a 16 bit number
     

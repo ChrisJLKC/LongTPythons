@@ -4,27 +4,28 @@ import spidev
 
 class Schedule_Pumping:
 
-    def __init__(self, number_of_cycles = 8, cycle_time = 1, pump_time = 2, min_moisture = 100):
-        
+    def __init__(self):
         #SPI SETUP
-        bus = 19
-        device = 21
-        spi = spidev.SpiDev()
+        self.spi = spidev.SpiDev()
+        #MOTOR SETUP
+        self.pump = Motor(17, 18)        
+    
+    def moisture_check(self):
         spi.open(0, 0)
         spi.max_speed_hz = 5000
         spi.mode = 0b01
-        #MOTOR SETUP
-        pump = Motor(17, 18)        
-        
         moisture_level_p = spi.xfer([0b01100000, 0b00000000]) #This is the 16 bit binary number that is produced from the 8-bit chip 
-        moisture_level = (moisture_level_p[0] * 256) + moisture_level_p[1] #combines both 8 bit binary numbers into a 16 bit number
+        return (moisture_level_p[0] * 256) + moisture_level_p[1] #combines both 8 bit binary numbers into a 16 bit number
+    
+    def pump_water(self, pump_time, min_moisture):
+        if moisture_check() < min_moisture:
+            pump.forward()
+            sleep(pump_time)
+            pump.stop()
+            return True
+        else:
+            return False
         
-        self.moisture_level = moisture_level # Only for testing. Remove later.
-
-        #Pump
-        for _ in range(1,number_of_cycles):
-            if moisture_level < min_moisture:
-                pump.forward()
-                sleep(pump_time)
-                pump.stop()
-            sleep(cycle_time)
+    def between_pumping(self, cycle_time):
+        sleep(cycle_time)
+        

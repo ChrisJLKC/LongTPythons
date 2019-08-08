@@ -5,7 +5,7 @@ max_run_time = max_run_time * 60 * 60
 cycle_time = 10800
 thirsty_time = 600
 
-min_moisture = 400
+min_moisture = 800
 pump_time = 2
 
 pump = PumpingTPythons.Schedule_Pumping()

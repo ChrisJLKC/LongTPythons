@@ -1,4 +1,3 @@
-from time import time
 import PumpingTPythons
 
 max_run_time = 24

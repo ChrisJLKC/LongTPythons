@@ -11,6 +11,7 @@ class Schedule_Pumping:
         self.pump = Motor(17, 18)        
     
     def moisture_check(self):
+        #Sets up the SPI values required to check moisture - returns the value as a positive integer
         spi.open(0, 0)
         spi.max_speed_hz = 5000
         spi.mode = 0b01
@@ -18,6 +19,7 @@ class Schedule_Pumping:
         return (moisture_level_p[0] * 256) + moisture_level_p[1] #combines both 8 bit binary numbers into a 16 bit number
     
     def pump_water(self, pump_time, min_moisture):
+        #Causes the device to stop/start pumping water based on the current moisture level
         if moisture_check() < min_moisture:
             pump.forward()
             sleep(pump_time)
@@ -27,5 +29,6 @@ class Schedule_Pumping:
             return False
         
     def between_pumping(self, cycle_time):
+        #Begins processes which will take place between pumps
         sleep(cycle_time)
         

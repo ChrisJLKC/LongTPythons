@@ -1,18 +1,19 @@
 from gpiozero import Motor
 from time import sleep
+import Sensor
 
 class Pump_Control:
 
     def __init__(self):
         self.pump = Motor(17, 18)
+        sensor = Sensor.Sensor_Control()
     
-    def pump_water(self, pump_time, pump_height):
+    def pump_water(self, pump_time):
         '''
         pump_time how long the plant needs to be watered for
-        pump_height the height difference between the plant and the water tank
         '''
         self.pump.forward()
-        pump_total_time = pump_time + pump_height * 10
-        sleep(pump_total_time)
+        while sensor.moisture_check() < min_moisture:
+            sleep(0.25)
+        sleep(pump_time)
         self.pump.stop()
-        return(pump_total_time)

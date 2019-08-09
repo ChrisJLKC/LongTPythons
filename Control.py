@@ -1,15 +1,14 @@
-import PumpingTPythons
-import SensorTPythons
+import Pump
+import Sensor
 from time import time, sleep
 
 watering_time = 2
-plant_height = 0.10
 min_moisture = 800
 
 time_between_water = 180
 
-pump = PumpingTPythons.Pump_Control()
-sensor = SensorTPythons.Sensor_Control()
+pump = Pump.Pump_Control()
+sensor = Sensor.Sensor_Control()
 
 water_needed = True
 while water_needed:
@@ -19,7 +18,11 @@ while water_needed:
         print("Moisture sensor may have failed")
         break
     elif moisture < min_moisture:
-        pump.pump_water(pump_time, pump_height)
+        pump.pump_water(pump_time)
+    else:
+        continue
+    
+    # if water_level:
     # Write moisture level to file here
     sleep(60 - (time()-start))
     

@@ -12,8 +12,7 @@ class Sensor_Control:
         moisture_level_p = self.spi.xfer([0b01100000, 0b00000000])
         moisture_ level = moisture_level_p[0] * 256) + moisture_level_p[1]
         if moisture_level < 200:
-            # Code to return error
-            return moisture_level
+            raise exception("Moisture sensor appears to have failed")
         else:
             return moisture_level
     

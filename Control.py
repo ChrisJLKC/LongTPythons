@@ -14,7 +14,11 @@ sensor = SensorTPythons.Sensor_Control()
 water_needed = True
 while water_needed:
     start = time()
-    if sensor.moisture_check() < min_moisture:
+    moisture = sensor.moisture_check()
+    if moisture < 200:
+        print("Moisture sensor may have failed")
+        break
+    elif moisture < min_moisture:
         pump.pump_water(pump_time, pump_height)
     # Write moisture level to file here
     sleep(60 - (time()-start))

@@ -1,19 +1,13 @@
-from gpiozero import Device
-from time import sleep
 import spidev
 
-bus = 19
-device = 21
+class Sensor_Control:
 
-spi = spidev.SpiDev()
-spi.open(0, 0)
-
-# Settings (for example)
-spi.max_speed_hz = 5000
-spi.mode = 0b01
-
-while True:
-    sleep(1)
-    number = spi.xfer([0b01100000, 0b00000000])
-    number[0] = number[0] * 256
-    print(number[0] + number[1])
+    def __init__(self):
+        self.spi = spidev.SpiDev()
+        self.spi.open(0, 0)
+        self.spi.max_speed_hz = 5000
+        self.spi.mode = 0b01
+        
+    def moisture_check(self):
+        moisture_level_p = self.spi.xfer([0b01100000, 0b00000000])
+        return (moisture_level_p[0] * 256) + moisture_level_p[1] 

@@ -18,7 +18,11 @@ while water_needed:
         print("Moisture sensor may have failed")
         break
     elif moisture < min_moisture:
-        pump.pump_water(pump_time)
+        pump.start_pump()
+        while sensor.moisture_check() < min_moisture:
+            sleep(0.25)
+        sleep(2)
+        pump.stop_pump()
     else:
         continue
     

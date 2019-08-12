@@ -1,5 +1,6 @@
 import Pump
 import Sensor
+import Data
 from time import time, sleep
 
 watering_time = 2
@@ -9,6 +10,7 @@ time_between_water = 180
 
 pump = Pump.Pump_Control()
 sensor = Sensor.Sensor_Control()
+write = Data.Data_Handling
 
 water_needed = True
 while water_needed:
@@ -26,6 +28,6 @@ while water_needed:
     else:
         continue
     
-    
+    write.write_to_csv(start, moisture_level)
     sleep(60 - (time()-start))
     

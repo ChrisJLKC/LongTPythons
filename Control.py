@@ -21,12 +21,11 @@ while water_needed:
         pump.start_pump()
         while sensor.moisture_check() < min_moisture:
             sleep(0.25)
-        sleep(2)
+        sleep(water_time)
         pump.stop_pump()
     else:
         continue
     
-    # if water_level:
-    # Write moisture level to file here
+    
     sleep(60 - (time()-start))
     

@@ -10,6 +10,6 @@ class Sensor_Control:
         
     def moisture_check(self):
         moisture_level_p = self.spi.xfer([0b01100000, 0b00000000])
-        moisture_ level = moisture_level_p[0] * 256) + moisture_level_p[1]
+        moisture_level = moisture_level_p[0] * 256) + moisture_level_p[1]
         return moisture_level
     

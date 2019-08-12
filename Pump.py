@@ -8,6 +8,8 @@ class Pump_Control:
     
     def start_pump(self):
         self.pump.forward()
+        return 1
 
     def stop_pump(self):
         self.pump.stop()
+        return 0

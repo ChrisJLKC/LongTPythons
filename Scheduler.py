@@ -1,34 +1,35 @@
-import Pump
-import Sensor
-import Data
-from time import time, sleep
+from datetime import datetime, timedelta
 
-watering_time = 2
-min_moisture = 800
 
-time_between_water = 180
+def Pump():
+    return "pump"    
 
-pump = Pump.Pump_Control()
-sensor = Sensor.Sensor_Control()
-write = Data.Data_Handling
+def LED():
+    return "LED"
 
-water_needed = True
-while water_needed:
-    start = time()
-    moisture = sensor.moisture_check()
-    if moisture < 200:
-        print("Moisture sensor may have failed")
-        break
-    elif moisture < min_moisture:
-        pump.start_pump()
-        while sensor.moisture_check() < min_moisture:
-            sleep(0.25)
-        sleep(water_time)
-        pump.stop_pump()
-    else:
-        continue
+def Sensor():
+    return "Sensor"
+
+class Scheduler:
     
-    write.write_to_csv(start, moisture_level)
-    sleep(60 - (time()-start))
+    def __init__(self):
+        self.Schedule = []
     
-    
+    def add(self, event):
+        self.Schedule.append(event)
+        self.Schedule.sort(key=lambda x: x[1])
+
+
+    def run(self):        
+        while len(self.Schedule) > 0:
+            if self.Schedule[0][1] <= datetime.now():
+                self.Schedule[0][0]()
+                print(self.Schedule[0][1])
+                self.Schedule.pop(0)
+
+schedule = Scheduler()
+schedule.add( (Sensor, datetime.now() + timedelta(seconds=3)) )
+schedule.add( (Pump, datetime.now() + timedelta(seconds=1)) )
+schedule.add( (LED, datetime.now() + timedelta(seconds=2)) )
+schedule.run()
+schedule.run()

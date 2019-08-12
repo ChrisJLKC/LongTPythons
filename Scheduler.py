@@ -1,15 +1,5 @@
 from datetime import datetime, timedelta
 
-
-def Pump():
-    return "pump"    
-
-def LED():
-    return "LED"
-
-def Sensor():
-    return "Sensor"
-
 class Scheduler:
     
     def __init__(self):
@@ -27,9 +17,11 @@ class Scheduler:
                 print(self.Schedule[0][1])
                 self.Schedule.pop(0)
 
+"""
 schedule = Scheduler()
 schedule.add( (Sensor, datetime.now() + timedelta(seconds=3)) )
 schedule.add( (Pump, datetime.now() + timedelta(seconds=1)) )
 schedule.add( (LED, datetime.now() + timedelta(seconds=2)) )
 schedule.run()
 schedule.run()
+"""

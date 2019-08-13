@@ -1,6 +1,3 @@
-import Sensor
-import Pump
-import Data
 from datetime import datetime, timedelta
 
 class Scheduler:

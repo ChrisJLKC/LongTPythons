@@ -12,7 +12,7 @@ class LED_Control:
             self.green_led.off()
             self.State = "Off"
             
-        elif self.State = "Red":
+        elif self.State == "Red":
             self.red_led.off()
             self.green_led.on()
             self.State = "Green"
@@ -22,7 +22,7 @@ class LED_Control:
             self.State = "Green"
         
     def red_LED(self):
-        if self.State = "Red":
+        if self.State == "Red":
             self.red_led.off()
             self.State = "Off"
             

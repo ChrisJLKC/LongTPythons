@@ -19,8 +19,8 @@ class Sensor_Control:
     def float_switch(self):
         if button.when_pressed:
             return True
-        elif button.when_released:
+        else:
             return False
-    
+
     
         

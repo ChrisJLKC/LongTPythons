@@ -1,15 +1,6 @@
 import Scheduler
 from datetime import datetime, timedelta
 
-def Pump():
-    return "pump"    
-
-def LED():
-    return "LED"
-
-def Sensor():
-    return "Sensor"
-
 def test_Scheduler_is_empty_at_start():
     Sch = Scheduler.Scheduler()
     assert len(Sch.Schedule) == 0
@@ -24,5 +15,9 @@ def test_Scheduler_items_are_sorted_by_datetime():
     Sch.add((Pump, datetime.now() + timedelta(seconds=10)) )
     Sch.add((Sensor, datetime.now() + timedelta(seconds=1)) )
     assert Sch.Schedule[0][0] == Sensor
+    
+def test_checking_pump():
+    Sch = Scheduler.Scheduler()
+    Sch.add((Pump, 
     
     

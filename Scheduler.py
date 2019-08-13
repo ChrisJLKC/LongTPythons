@@ -54,7 +54,7 @@ class Scheduler:
             self.add( (self.Check_need_Pump, datetime.now() + timedelta(seconds = 10)) )
             
     def Pump(self):
-        if self.pump_running == 1:
+        if self.pump_running = 1:
             self.stop_pump()
             self.pump_running = 0
         else:

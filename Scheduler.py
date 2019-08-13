@@ -1,6 +1,7 @@
 import Sensor
 import Pump
 import Data
+import LED
 from datetime import datetime, timedelta
 
 class Scheduler:
@@ -31,11 +32,11 @@ class Scheduler:
         self.Schedule.sort(key=lambda x: x[1])
     
     def Check_tank_level(self):
-        if sensor.floatswitch:
+        if self.tank_button:
             self.green_led
         else:
             self.red_led
-    Schedule.add( (Schedule.Check_tank_level, datetime.now() + timedelta(seconds = 2)) )
+        self.add( (Schedule.Check_tank_level, datetime.now() + timedelta(seconds = 2)) )
 
     def Check_need_Pump(self):
         moisture = self.get_moisture()
@@ -46,9 +47,9 @@ class Scheduler:
             self.add( (self.Check_need_Pump, datetime.now() + timedelta(seconds = 0.25)) )
         elif moisture > self.min_moisture and self.pump_running == 1:
             self.add( (self.Pump, datetime.now() + timedelta(seconds = 2)) )
-            self.add( (self.Check_need_Pump, datetime.now() + timedelta(hours = 3)) )
+            self.add( (self.Check_need_Pump, datetime.now() + timedelta(seconds = 20)) )
         else:
-            self.add( (self.Check_need_Pump, datetime.now() + timedelta(minutes = 10)) )
+            self.add( (self.Check_need_Pump, datetime.now() + timedelta(seconds = 10)) )
             
     def Pump(self):
         if self.pump_running == 1:

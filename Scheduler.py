@@ -1,5 +1,6 @@
 import Sensor
 import Pump
+import Data
 from datetime import datetime, timedelta
 
 class Scheduler:
@@ -11,8 +12,10 @@ class Scheduler:
         self.pump = Pump.Pump_Control()
         self.start_pump = self.pump.start_pump
         self.stop_pump = self.pump.stop_pump
-        self.pump_running = 0
+        self.data = Data.Data_Handling()
+        self.write = self.data.write_to_csv
         
+        self.pump_running = 0
         self.min_moisture = 500
     
     def add(self, event):
@@ -39,6 +42,10 @@ class Scheduler:
         else:
             self.start_pump()
             self.pump_running = 1
+            
+    def Write(self):
+        self.write(datetime.now(), self.get_moisture())
+        self.add( (self.Write, datetime.now() + timedelta(seconds = 10)) )
         
     def run(self):        
         while len(self.Schedule) > 0:
@@ -52,5 +59,5 @@ class Scheduler:
 if __name__ == '__main__':
     Schedule = Scheduler()
     Schedule.add( (Schedule.Check_need_Pump, datetime.now() + timedelta(seconds = 1)) )
-    #Schedule.add( (Write, datetime.now() + timedelta(minutes = 1)) )
+    Schedule.add( (Schedule.Write, datetime.now()) )
     Schedule.run()

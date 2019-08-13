@@ -18,5 +18,9 @@ def test_Scheduler_items_are_sorted_by_datetime():
         
 #def test_
     
+<<<<<<< HEAD
+=======
+
+>>>>>>> f4589a0f6ee4e53da30f3843ae4ebb59e05bd856
     
     

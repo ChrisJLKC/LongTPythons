@@ -7,13 +7,21 @@ class Scheduler:
     
     def __init__(self):
         self.Schedule = []
+        
         self.sensor = Sensor.Sensor_Control()
         self.get_moisture = self.sensor.moisture_check
+        self.tank_button = self.sensor.float_switch
+        
         self.pump = Pump.Pump_Control()
         self.start_pump = self.pump.start_pump
         self.stop_pump = self.pump.stop_pump
+        
         self.data = Data.Data_Handling()
         self.write = self.data.write_to_csv
+        
+        self.led = LED.LED_Control()
+        self.green_led = self.led.green_LED
+        self.red_led = self.led.red_LED
         
         self.pump_running = 0
         self.min_moisture = 500
@@ -21,6 +29,13 @@ class Scheduler:
     def add(self, event):
         self.Schedule.append(event)
         self.Schedule.sort(key=lambda x: x[1])
+    
+    def Check_tank_level(self):
+        if sensor.floatswitch:
+            self.green_led
+        else:
+            self.red_led
+    Schedule.add( (Schedule.Check_tank_level, datetime.now() + timedelta(seconds = 2)) )
 
     def Check_need_Pump(self):
         moisture = self.get_moisture()
@@ -60,4 +75,5 @@ if __name__ == '__main__':
     Schedule = Scheduler()
     Schedule.add( (Schedule.Check_need_Pump, datetime.now() + timedelta(seconds = 1)) )
     Schedule.add( (Schedule.Write, datetime.now()) )
+    Schedule.add( (Schedule.Check_tank_level, datetime.now()) )
     Schedule.run()

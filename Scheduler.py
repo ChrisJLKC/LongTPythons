@@ -43,8 +43,10 @@ class Scheduler:
         if moisture < self.min_moisture and self.pump_running == 0:
             self.add( (self.Pump, datetime.now() + timedelta(seconds = 1)) )
             self.add( (self.Check_need_Pump, datetime.now() + timedelta(seconds = 1)) )
+            
         elif moisture < self.min_moisture and self.pump_running == 1:
             self.add( (self.Check_need_Pump, datetime.now() + timedelta(seconds = 0.25)) )
+            
         elif moisture > self.min_moisture and self.pump_running == 1:
             self.add( (self.Pump, datetime.now() + timedelta(seconds = 2)) )
             self.add( (self.Check_need_Pump, datetime.now() + timedelta(seconds = 20)) )
@@ -70,6 +72,8 @@ class Scheduler:
                 self.Schedule[0][0]()
                 print(self.Schedule[0][1])
                 self.Schedule.pop(0)
+                print(self.get_moisture())
+                print(self.pump_running)
 
 
 if __name__ == '__main__':

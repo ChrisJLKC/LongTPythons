@@ -16,8 +16,6 @@ def test_Scheduler_items_are_sorted_by_datetime():
     Sch.add((Sensor, datetime.now() + timedelta(seconds=1)) )
     assert Sch.Schedule[0][0] == Sensor
     
-def test_checking_pump():
-    Sch = Scheduler.Scheduler()
-    Sch.add((Pump, 
+
     
     

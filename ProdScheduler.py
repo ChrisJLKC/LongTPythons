@@ -19,7 +19,7 @@ class Scheduler:
         """
         Return next scheduled task and remove it from schedule.
         """
-        if len(self.Schedule) = 0:
+        if len(self.Schedule)  0:
             return None
         elif datetime.now() <= self.Schedule[0][1]:
             task = self.Schedule[0][0]

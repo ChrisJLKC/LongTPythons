@@ -49,10 +49,11 @@ class Control:
             if self.InternalData[0][0] < self.min_moisture:
                 self.Schedule.add(self.Pump_Control.start_pump,
                                   None, (0, 0, 0))
-            elif self.InternalData[0][0] > self.min_moisture and self.InternalData[1]:
+            elif self.InternalData[0][0] > self.min_moisture
+            and self.InternalData[1]:
                 self.Schedule.add(self.Pump_Control.stop_pump,
                                   None, (0, 0, 2))
-                
+
             else:
                 pass
 
@@ -63,10 +64,11 @@ class Control:
 
             else:
                 self.Schedule.add(self.LED.red_LED, None, (0, 0, 0.25))
-        
+
         # Schedule Data write if not currently scheduled
         if not self.Schedule.isScheduled(self.Data.write_to_csv):
-            self.Schedule.add(self.Data.write_to_csv, data[0][0], (0, 0, 0.5))
+            self.Schedule.add(self.Data.write_to_csv,
+                              self.InternalData[0][0], (0, 0, 0.5))
 
     def ExecuteNextTask(self):
         """

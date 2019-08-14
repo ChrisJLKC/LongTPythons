@@ -73,7 +73,6 @@ class Control:
 
         task = self.Schedule.nextTask()
 
-        print(task[0])
         if task is None:
             pass
 

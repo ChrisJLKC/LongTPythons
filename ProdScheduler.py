@@ -21,7 +21,7 @@ class Scheduler:
         """
         if len(self.Schedule) == 0:
             return None
-        elif datetime.now() <= self.Schedule[0][2]:
+        elif datetime.now() >= self.Schedule[0][2]:
             task = self.Schedule[0][0]
             param = self.Schedule[0][1]
             self.Schedule.pop(0)

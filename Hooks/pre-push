@@ -1,0 +1,4 @@
+#!/bin/sh
+
+MY_DIR="$( cd "$( dirname "${0}" )" && pwd )"
+pycodestyle "${MY_DIR}/../.."

@@ -24,13 +24,14 @@ class Control:
         Write diagnostic data to Database.
         """
         # [Sensor, Pump]
-        #  Sensor -> (Moisture_Level, Tank_Level)
+        #  Sensor -> (Moisture_Level, Tank_Level, Light_Level)
         #  Pump -> Pumping State
 
         data = []
 
         data.append((self.Sensor_Control.moisture_check(),
-                     self.Sensor_Control.float_switch()))
+                     self.Sensor_Control.float_switch(),
+                     self.Sensor_Control.light_check()))
 
         data.append(self.Pump_Control.State)
 
@@ -68,7 +69,7 @@ class Control:
         # Schedule Data write if not currently scheduled
         if not self.Schedule.isScheduled(self.Data.write_to_csv):
             self.Schedule.add(self.Data.write_to_csv,
-                              self.InternalData[0][0], (0, 0, 0.5))
+                              self.InternalData, (0, 0, 0.5))
 
     def ExecuteNextTask(self):
         """

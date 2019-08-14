@@ -17,6 +17,11 @@ class Sensor_Control:
         moisture_level = (moisture_level_p[0] * 256) + moisture_level_p[1]
         return moisture_level
 
+    def light_check(self):
+        light_level_p = self.spi.xfer([0b01101000, 0b00000000])
+        light_level = (light_level_p[0] * 256) + light_level_p[1]
+        return light_level
+
     def float_switch(self):
         if not self.button.value:
             return True

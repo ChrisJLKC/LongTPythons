@@ -1,20 +1,20 @@
 from datetime import datetime, timedelta
 
+
 class Scheduler:
-    
+
     def __init__(self):
         self.Schedule = []
-    
-    
+
     def add(self, func, param, time):
         """
-        Schedule a Method 
+        Schedule a Method
         """
         # Time => (Hours, Minutes, Seconds)
         Delta = timedelta(hours=time[0], minutes=time[1], seconds=[2])
-        self.Schedule.append( (func, param, datetime.now() + Delta) )
+        self.Schedule.append((func, param, datetime.now() + Delta))
         self.Schedule.sort(key=lambda x: x[1])
-        
+
     def nextTask(self):
         """
         Return next scheduled task and remove it from schedule.
@@ -27,14 +27,11 @@ class Scheduler:
             return (task, param)
         else:
             return None
-        
+
     def isScheduled(self, *tasks):
         """
-        Checks if a task is currently scheduled. It is meant to help control to schedule tasks
+        Checks if a task is currently scheduled.
+        It is meant to help control to schedule tasks
         """
         taskScheduled = [Event[0] for Event in self.Schedule]
-        return any([ (task in taskScheduled) for task in tasks])
-        
-    
-
-
+        return any([(task in taskScheduled) for task in tasks])

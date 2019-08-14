@@ -27,7 +27,6 @@ while water_needed:
         pump.stop_pump()
     else:
         continue
-    
+
     write.write_to_csv(start, moisture_level)
     sleep(60 - (time()-start))
-    

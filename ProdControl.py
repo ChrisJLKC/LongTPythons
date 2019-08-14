@@ -29,7 +29,9 @@ class Control:
 
         data = []
 
-        data.append((self.Sensor.moisture_check(), self.Sensor.float_switch()))
+        data.append((self.Sensor_Control.moisture_check(),
+                     self.Sensor_Control.float_switch()))
+
         data.append(self.Pump_Control.State)
 
         self.Data.write_to_csv(data[0][0])

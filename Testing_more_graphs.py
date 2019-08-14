@@ -8,6 +8,7 @@ x_data, y_data = [], []
 figure = pyplot.figure()
 line, = pyplot.plot_date(x_data, y_data, '-')
 
+
 def update(frame):
     x_data.append(datetime.now())
     y_data.append(randrange(0, 100))
@@ -15,6 +16,7 @@ def update(frame):
     figure.gca().relim()
     figure.gca().autoscale_view()
     return line,
+
 
 animation = FuncAnimation(figure, update, interval=1)
 

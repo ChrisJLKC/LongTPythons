@@ -49,8 +49,8 @@ class Control:
             if self.InternalData[0][0] < self.min_moisture:
                 self.Schedule.add(self.Pump_Control.start_pump,
                                   None, (0, 0, 0))
-            elif self.InternalData[0][0] > self.min_moisture
-            and self.InternalData[1]:
+            elif (self.InternalData[0][0] > self.min_moisture 
+            and self.InternalData[1]):
                 self.Schedule.add(self.Pump_Control.stop_pump,
                                   None, (0, 0, 2))
 

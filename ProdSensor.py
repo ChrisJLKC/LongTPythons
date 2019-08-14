@@ -18,7 +18,7 @@ class Sensor_Control:
         return moisture_level
 
     def light_check(self):
-        light_level_p = self.spi.xfer([0b01101000, 0b00000000])
+        light_level_p = self.spi.xfer([0b01110000, 0b00000000])
         light_level = (light_level_p[0] * 256) + light_level_p[1]
         return light_level
 

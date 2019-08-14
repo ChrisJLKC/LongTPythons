@@ -18,7 +18,7 @@ class Sensor_Control:
         return moisture_level
 
     def float_switch(self):
-        if button.when_pressed:
+        if self.button.when_pressed:
             return True
         else:
             return False

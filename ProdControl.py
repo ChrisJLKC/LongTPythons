@@ -48,21 +48,21 @@ class Control:
                                          self.Pump_Control.stop_pump):
 
             if self.InternalData[0][0] < self.min_moisture:
-                self.Schedule.add((self.Pump_Control.start_pump,
-                                   None, (0, 0, 1)))
+                self.Schedule.add(self.Pump_Control.start_pump,
+                                  None, (0, 0, 1))
 
-                self.Schedule.add((self.Pump_Control.stop_pump,
-                                   None, (0, 0, 3)))
+                self.Schedule.add(self.Pump_Control.stop_pump,
+                                  None, (0, 0, 3))
             else:
                 pass
 
         # Schedule LED Update if not currently scheduled
         if not self.Schedule.isScheduled(self.LED.green_LED, self.LED.red_LED):
             if self.InternalData[0][1]:
-                self.Schedule.add((self.LED.green_LED, None, (0, 0, 1)))
+                self.Schedule.add(self.LED.green_LED, None, (0, 0, 1))
 
             else:
-                self.Schedule.add((self.LED.red_LED, None, (0, 0, 1)))
+                self.Schedule.add(self.LED.red_LED, None, (0, 0, 1))
 
     def ExecuteNextTask(self):
         """

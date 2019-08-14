@@ -11,9 +11,9 @@ class Scheduler:
         Schedule a Method
         """
         # Time => (Hours, Minutes, Seconds)
-        Delta = timedelta(hours=time[0], minutes=time[1], seconds=[2])
+        Delta = timedelta(hours=time[0], minutes=time[1], seconds=time[2])
         self.Schedule.append((func, param, datetime.now() + Delta))
-        self.Schedule.sort(key=lambda x: x[1])
+        self.Schedule.sort(key=lambda x: x[2])
 
     def nextTask(self):
         """
@@ -21,8 +21,9 @@ class Scheduler:
         """
         if len(self.Schedule) == 0:
             return None
-        elif datetime.now() <= self.Schedule[0][1]:
+        elif datetime.now() <= self.Schedule[0][2]:
             task = self.Schedule[0][0]
+            param = self.Schedule[0][1]
             self.Schedule.pop(0)
             return (task, param)
         else:

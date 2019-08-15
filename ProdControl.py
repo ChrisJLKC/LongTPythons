@@ -72,10 +72,11 @@ class Control:
         if not self.Schedule.isScheduled(self.Data.write_to_csv):
             self.Schedule.add(self.Data.write_to_csv,
                               self.InternalData, (0, 0, 0.5))
-        
+
         # Schedule Graph to show if not currently scheduled
         if not self.Schedule.isScheduled(self.Graph.show_graph):
-            self.Schedule.add(self.Graph.show_graph, self.InternalData, (0, 0, 0.5))
+            self.Schedule.add(self.Graph.show_graph,
+                              self.InternalData, (0, 0, 0.5))
 
     def ExecuteNextTask(self):
         """

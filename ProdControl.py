@@ -9,7 +9,8 @@ import csv
 
 class Control:
 
-    def __init__(self, min_moisture, max_moisture, min_light, max_light, water_time):
+    def __init__(self, min_moisture, max_moisture, min_light, max_light,
+                 water_time):
         self.Pump_Control = ProdPump.Pump_Control()
         self.Sensor_Control = ProdSensor.Sensor_Control()
         self.Data = ProdData.Data_Handling()
@@ -17,7 +18,7 @@ class Control:
         self.Graph = Testing_more_graphs.Graph_Plotter()
 
         self.InternalData = []
-        
+
         self.min_moisture = min_moisture
         self.max_moisture = max_moisture
         self.min_light = min_light

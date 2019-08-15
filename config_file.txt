@@ -1,1 +1,2 @@
-500, 600, 800, 1000, 2
+500, 600, 800, 1000, 5
+min_moisture, max_moisture, min_light, max_light, watering_time

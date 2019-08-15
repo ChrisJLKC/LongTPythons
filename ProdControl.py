@@ -3,6 +3,7 @@ import ProdSensor
 import ProdData
 import ProdLED
 import ProdScheduler
+import Testing_more_graphs
 
 
 class Control:
@@ -12,6 +13,7 @@ class Control:
         self.Sensor_Control = ProdSensor.Sensor_Control()
         self.Data = ProdData.Data_Handling()
         self.LED = ProdLED.LED_Control()
+        self.Graph = Testing_more_graphs.Graph_Plotter()
 
         self.InternalData = []
         self.min_moisture = min_moisture
@@ -70,6 +72,10 @@ class Control:
         if not self.Schedule.isScheduled(self.Data.write_to_csv):
             self.Schedule.add(self.Data.write_to_csv,
                               self.InternalData, (0, 0, 0.5))
+        
+        # Schedule Graph to show if not currently scheduled
+        if not self.Schedule.isScheduled(self.Graph.show_graph):
+            self.Schedule.add(self.Graph.show_graph, self.InternalData, (0, 0, 0.5))
 
     def ExecuteNextTask(self):
         """
@@ -94,7 +100,6 @@ if __name__ == "__main__":
     MainController = Control(200)
 
     while True:
-
         MainController.Checkup()
         MainController.UpdateSchedule()
         MainController.ExecuteNextTask()

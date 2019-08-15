@@ -1,23 +1,31 @@
 from datetime import datetime
 from matplotlib import pyplot
-from matplotlib.animation import FuncAnimation
-from random import randrange
-
-x_data, y_data = [], []
-
-figure = pyplot.figure()
-line, = pyplot.plot_date(x_data, y_data, '-')
 
 
-def update(frame):
-    x_data.append(datetime.now())
-    y_data.append(randrange(0, 100))
-    line.set_data(x_data, y_data)
-    figure.gca().relim()
-    figure.gca().autoscale_view()
-    return line,
+class Graph_Plotter:
 
+    def __init__(self):        
+        pyplot.ion()
+        self.x_time, self.y_moisture, self.y_light, self.y_pump_status = [], [], [], []
+        self.figure = pyplot.figure()                
 
-animation = FuncAnimation(figure, update, interval=1)
+    def show_graph(self, input_data):
+        sensordata = (input_data[0][0], input_data[0][2], input_data[0][1])
+        self.data_to_plot = [datetime.now(), *sensordata, input_data[1]]
 
-pyplot.show()
+        self.x_time.append(datetime.now())
+        self.y_moisture.append   (self.data_to_plot[1])
+        self.y_light.append      (self.data_to_plot[2])
+        self.y_pump_status.append(self.data_to_plot[4] * 500)
+
+        axMoisture = pyplot.subplot(211)
+        pyplot.plot(self.x_time, self.y_moisture)
+        pyplot.plot(self.x_time, self.y_pump_status)
+
+        # Makes the labels invisible
+        pyplot.setp(axMoisture.get_xticklabels(), visible=False)
+
+        axLight = pyplot.subplot(212)
+        pyplot.plot(self.x_time, self.y_light)        
+
+        self.figure.canvas.draw()

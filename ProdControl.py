@@ -4,11 +4,12 @@ import ProdData
 import ProdLED
 import ProdScheduler
 import Testing_more_graphs
+import csv
 
 
 class Control:
 
-    def __init__(self, min_moisture):
+    def __init__(self, min_moisture, max_moisture, min_light, max_light, water_time):
         self.Pump_Control = ProdPump.Pump_Control()
         self.Sensor_Control = ProdSensor.Sensor_Control()
         self.Data = ProdData.Data_Handling()
@@ -16,7 +17,12 @@ class Control:
         self.Graph = Testing_more_graphs.Graph_Plotter()
 
         self.InternalData = []
+        
         self.min_moisture = min_moisture
+        self.max_moisture = max_moisture
+        self.min_light = min_light
+        self.max_light = max_light
+        self.water_time = water_time
 
         self.Schedule = ProdScheduler.Scheduler()
 
@@ -55,7 +61,7 @@ class Control:
             elif (self.InternalData[0][0] > self.min_moisture
                     and self.InternalData[1]):
                 self.Schedule.add(self.Pump_Control.stop_pump,
-                                  None, (0, 0, 2))
+                                  None, (0, 0, self.water_time))
 
             else:
                 pass
@@ -98,7 +104,10 @@ class Control:
 
 
 if __name__ == "__main__":
-    MainController = Control(200)
+    with open("./config_file.txt", "r") as ConfigFile:
+        settings = list(csv.reader(ConfigFile, delimiter=","))[0]
+        settings = tuple(map(lambda string: int(string), settings))
+        MainController = Control(*settings)
 
     while True:
         MainController.Checkup()

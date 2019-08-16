@@ -1,2 +1,2 @@
-500, 600, 800, 1000, 5
-min_moisture, max_moisture, min_light, max_light, watering_time
+500, 600, 800, 1000, 5, 10
+min_moisture, max_moisture, min_light, max_light, watering_time, Override_time (I shold be lowercase)

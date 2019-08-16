@@ -112,12 +112,25 @@ class Control:
 
 
 if __name__ == "__main__":
-    with open("./config_file.txt", "r") as ConfigFile:
+    while True:
+        x = input("Which config file do you want to use? (1, 2)\n>>> ")
+        if x in ["1", "2"]:
+            if x == "1":
+                x = "./config_file.txt"
+            else:
+                x = "./config_file_2.txt"
+            break
+        else:
+            print("Invalid input. Try again.\n\n")
+    with open(x, "r") as ConfigFile:
         settings = list(csv.reader(ConfigFile, delimiter=","))[0]
         settings = tuple(map(lambda string: int(string), settings))
         MainController = Control(*settings)
-
-    while True:
-        MainController.Checkup()
-        MainController.UpdateSchedule()
-        MainController.ExecuteNextTask()
+    
+    try:
+        while True:
+            MainController.Checkup()
+            MainController.UpdateSchedule()
+            MainController.ExecuteNextTask()
+    except KeyboardInterrupt:
+        pass

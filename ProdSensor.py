@@ -31,6 +31,6 @@ class Sensor_Control:
 
     def manual_override(self):
         if self.manual_button.value:
-            return True
-        else:
             return False
+        else:
+            return True

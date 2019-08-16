@@ -11,6 +11,7 @@ class Sensor_Control:
         self.spi.mode = 0b01
 
         self.button = Button(16)
+        self.manual_button = Button(25)
 
     def moisture_check(self):
         moisture_level_p = self.spi.xfer([0b01100000, 0b00000000])
@@ -24,6 +25,12 @@ class Sensor_Control:
 
     def float_switch(self):
         if not self.button.value:
+            return True
+        else:
+            return False
+
+    def manual_override(self):
+        if self.manual_button.value:
             return True
         else:
             return False

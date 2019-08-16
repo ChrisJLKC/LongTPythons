@@ -38,7 +38,8 @@ class Control:
 
         data.append((self.Sensor_Control.moisture_check(),
                      self.Sensor_Control.float_switch(),
-                     self.Sensor_Control.light_check()))
+                     self.Sensor_Control.light_check(),
+                     self.Sensor_Control.manual_override()))
 
         data.append(self.Pump_Control.State)
 
@@ -53,6 +54,12 @@ class Control:
         # Schedule Pump if not currently scheduled and moisture is too low
         if not self.Schedule.isScheduled(self.Pump_Control.start_pump,
                                          self.Pump_Control.stop_pump):
+
+            if self.InternalData[0][3]:
+                self.Schedule.add(self.Pump_Control.start_pump,
+                                  None, (0, 0, 0))
+                self.Schedule.add(self.Pump_Control.stop_pump,
+                                  None, (0, 0, self.water_time))
 
             if self.InternalData[0][0] < self.min_moisture:
                 self.Schedule.add(self.Pump_Control.start_pump,
@@ -81,7 +88,7 @@ class Control:
         # Schedule Graph to show if not currently scheduled
         if not self.Schedule.isScheduled(self.Graph.show_graph):
             self.Schedule.add(self.Graph.show_graph,
-                              (self.InternalData, self.graph_data),
+                              (self.InternalData[:3], self.graph_data),
                               (0, 0, 0.5))
 
     def ExecuteNextTask(self):

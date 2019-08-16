@@ -18,11 +18,9 @@ class Control:
         self.Graph = Testing_more_graphs.Graph_Plotter()
 
         self.InternalData = []
+        self.graph_data = [min_moisture, max_moisture, min_light, max_light]
 
         self.min_moisture = min_moisture
-        self.max_moisture = max_moisture
-        self.min_light = min_light
-        self.max_light = max_light
         self.water_time = water_time
 
         self.Schedule = ProdScheduler.Scheduler()
@@ -83,7 +81,7 @@ class Control:
         # Schedule Graph to show if not currently scheduled
         if not self.Schedule.isScheduled(self.Graph.show_graph):
             self.Schedule.add(self.Graph.show_graph,
-                              self.InternalData, (0, 0, 0.5))
+                              (self.InternalData, self.graph_data), (0, 0, 0.5))
 
     def ExecuteNextTask(self):
         """

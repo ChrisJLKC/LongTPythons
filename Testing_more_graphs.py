@@ -37,7 +37,8 @@ class Graph_Plotter:
         self.Other_Dark_Purple = "#2f387c"
 
     def show_graph(self, input_data):
-        sensordata = (input_data[0][0][0], input_data[0][0][2], input_data[0][0][1])
+        sensordata = (input_data[0][0][0], input_data[0][0][2],
+                      input_data[0][0][1])
         self.data_to_plot = [datetime.now(), *sensordata, input_data[0][1]]
 
         self.x_time.append(datetime.now())
@@ -54,20 +55,20 @@ class Graph_Plotter:
         self.y_pump_status.append(self.data_to_plot[4] * 550)
 
         axMoisture = pyplot.subplot(211)  # nrows, ncols, index
-        
+
         pyplot.plot(self.x_time, self.y_min_moisture,
                     color=self.Other_Dark_Purple)
 
         pyplot.plot(self.x_time, self.y_max_moisture,
                     color=self.Other_Dark_Purple)
-        
+
         pyplot.plot(self.x_time, self.y_moisture,
                     color=self.Dark_Blue, linewidth=1)
-        
-        pyplot.plot(self.x_time, self.y_pump_status, marker="o",                    
+
+        pyplot.plot(self.x_time, self.y_pump_status, marker="o",
                     color=self.Core_Purple,
                     linestyle="dashed", markersize=2)
-        
+
         pyplot.title("Moisture", fontsize=16, fontweight=0,
                      color=self.Dark_Purple, loc='left')
         axMoisture.patch.set_facecolor(self.Core_Blue)
@@ -91,6 +92,6 @@ class Graph_Plotter:
 
         # Sets BG for window
         self.figure.patch.set_facecolor(self.Other_Blue)
-        
-        axLight.patch.set_facecolor(self.Core_Purple)        
+
+        axLight.patch.set_facecolor(self.Core_Purple)
         self.figure.canvas.draw()

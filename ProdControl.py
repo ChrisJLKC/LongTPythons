@@ -81,7 +81,8 @@ class Control:
         # Schedule Graph to show if not currently scheduled
         if not self.Schedule.isScheduled(self.Graph.show_graph):
             self.Schedule.add(self.Graph.show_graph,
-                              (self.InternalData, self.graph_data), (0, 0, 0.5))
+                              (self.InternalData, self.graph_data),
+                              (0, 0, 0.5))
 
     def ExecuteNextTask(self):
         """
